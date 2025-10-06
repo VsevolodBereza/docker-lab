@@ -6,6 +6,7 @@
 
 At some point in the assignment, you should replace the `web` directory with the `web_new` where we have given you the full code for the whole Web interface.
 That's only when it is desired.
+Remove the `web` directory's `.gitignore` file to save your changes then.
 
 ## Breaking changes
 
