@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="display-4">Cats</h1>
+    <p class="lead">Look! A cat!</p>
+    <h2 class="display-6">{{ cat.name.capitalize() }}</h2>
+    <img src="{{ cat.url }}" class="img-fluid" alt="{{ cat.name }}">
+{% endblock %}

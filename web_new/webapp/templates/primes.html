@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="display-4">Prime numbers!</h1>
+    <p class="lead">Oh dear! Here we go again... You know? This request is quite heavy for the API!</p>
+    <p>
+        Try it yourself! Example: <a href="{{ url_for('prime_blueprint.primes') }}?lower=100&upper=1000">/?lower=100&upper=1000</a>
+    </p>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Woops!</strong> {{ error }}
+        </div>
+    {% else %}
+        <p>
+            {% for prime in primes %}
+                <span class="badge bg-light text-dark">{{ prime }}</span>
+            {% endfor %}
+        </p>
+    {% endif %}
+{% endblock %}

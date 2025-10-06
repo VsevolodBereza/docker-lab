@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <h1 class="display-4">Nothing to do here...</h1>
+        <p class="lead">Seems like you're already logged in!</p>
+    {% else %}
+        <h1 class="display-4">Register</h1>
+        <p class="lead">You won't regret, coolest app ever!</p>
+        {% if error or form.errors.items() %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+                {% for field, errors in form.errors.items() %}
+                    <p><strong>{{ form[field].label }}:</strong> {{ ', '.join(errors) }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form role="form" action="" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(placeholder="Enter username", class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(placeholder="Enter email", class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(placeholder="Enter password", class="form-control", type="password") }}
+            </div>
+            <button type="submit" class="btn btn-success">Register!</button>
+        </form>
+    {% endif %}
+{% endblock %}
