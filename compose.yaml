@@ -1,0 +1,52 @@
+services:
+  api:
+    build: ./api
+    image: vsevolodbereza/api
+    ports:
+      - 8080:8080
+    environment:
+      - POSTGRES_USER=student_user
+      - POSTGRES_PASSWORD=student_password
+      - POSTGRES_DATABASE=labo
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=postgres
+      - PORT=8080
+      
+  frontend:
+    build: ./web
+    image: vsevolodbereza/frontend
+    expose:
+      - 8000
+    environment:
+      - API_HOST=api
+      - API_PORT=8080
+      - PORT=8000
+    volumes:
+      - staticfiles:/app/webapp/static:ro
+
+
+  nginx:
+    build: ./nginx
+    image: vsevolodbereza/nginx
+    ports:
+      - 80:80
+    volumes:
+      - staticfiles:/app/static:ro
+
+  postgres:
+    image: 'docker.io/postgres:18.2-alpine'
+    environment:
+      - POSTGRES_USER=student_user
+      - POSTGRES_PASSWORD=student_password
+      - POSTGRES_DB=labo
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U student_user -d labo -h localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres:
+  staticfiles:

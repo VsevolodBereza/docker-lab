@@ -10,3 +10,4 @@
 docker-compose.*
 Dockerfile
 *.md
+prestart.sh
